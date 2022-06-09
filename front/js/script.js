@@ -23,6 +23,8 @@ et la console affiche une erreur d'Api non trouvée
     });
 
 
+
+    
 // Fonction d'affichage des cards articles (index correspond à la première valeur du tableau)
 
 /* 
