@@ -27,8 +27,11 @@ et la console affiche une erreur d'Api non trouvée
 
 /* 
 Déclaration de la variable sur le selecteur html
+
 Boucle pour automatisé la creation de card pour chaque article les unes après les autres
+
 Récupération des paramètres de l'url afin de savoir quel produit de l'api afficher sur la page produit grace à l'id
+
 Code relatif à l'ajout de contenu html
 */
 
@@ -36,14 +39,15 @@ function cardKanap(card) {
     let zoneCard = document.querySelector("#items");
     for (let article of card) {
 
-      zoneCard.innerHTML += `<a href="./product.html?_id=${article._id}">
+      zoneCard.innerHTML += 
+      `<a href="./product.html?_id=${article._id}">
 
-      <article>
-        <img src="${article.imageUrl}" alt="${article.altTxt}">
-        <h3 class="productName">${article.name}</h3>
-        <p class="productDescription">${article.description}</p>
-      </article>
-    </a>`;
+        <article>
+            <img src="${article.imageUrl}" alt="${article.altTxt}">
+            <h3 class="productName">${article.name}</h3>
+            <p class="productDescription">${article.description}</p>
+        </article>
+      </a>`;
     }
   }
 
