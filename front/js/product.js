@@ -17,8 +17,16 @@ et la console affiche une erreur d'Api non trouvée
 */
     .catch((erreur) => {
 
-        document.querySelector(".item").innerHTML = "<h1>Erreur 404</h1>";
+        let h1 = document.createElement('h1');
+        h1.appendChild(document.createTextNode('Erreur 404'));
+
+        let oldTitles = document.querySelector(".item");
+        let oldH1 = oldTitles.children[0];
+
         
+        oldTitles.replaceChild(h1, oldH1);
+        let rmvH2 = oldTitles.removeChild(oldTitles.children[1]);
+
         console.log("'API not found':" + erreur);
     });
 

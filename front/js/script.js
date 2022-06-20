@@ -19,7 +19,6 @@ et la console affiche une erreur d'Api non trouvée
 */
     .catch((erreur) => {
 
-        // document.querySelector(".titles").innerHTML = "<h1>Erreur</h1>";
         
         let h1 = document.createElement('h1');
         h1.appendChild(document.createTextNode('Erreur 404'));
