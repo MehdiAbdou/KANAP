@@ -9,7 +9,7 @@ const id = urlParam.get("_id");
     .then((res) => res.json())
     .then((apiProduit) => {
         console.table(apiProduit);
-        // ajouter fonction (apiProduit);
+        product(apiProduit);
     })
 /* 
 Si l'Api n'est pas trouvé, le texte associé à la classe .titles se transforme en H1 d'erreur 
@@ -25,12 +25,51 @@ et la console affiche une erreur d'Api non trouvée
 
         
         oldTitles.replaceChild(h1, oldH1);
-        let rmvH2 = oldTitles.removeChild(oldTitles.children[1]);
+        
 
         console.log("'API not found':" + erreur);
     });
 
+        let productDisplay = {};
+        productDisplay._id = id;
+        console.log(productDisplay);
 
+    function product(produit) {
+       
+        let imgAlt = document.querySelector("article div.item__img");
+        let title = document.querySelector("#title");
+        let price = document.querySelector("#price");
+        let description = document.querySelector("#description");
+        let colorsOption = document.querySelector("#colors");
+        // boucle for 
+        for (let type of produit) {
+          //si id strictement identique à un _id d'un produits du tableau ==> recup indice 
+          if (id === type._id) {
+            //ajout éléments
+            let articleImg = document.createElement ('img');
+                articleImg.setAttribute('src', `${type.imageUrl}`);
+                articleImg.setAttribute('alt', `${type.altTxt}`);
+                imgAlt.appendChild(articleImg);
+
+            title.textContent = `${type.name}`;
+            price.textContent = `${type.price}`;
+            description.textContent = `${type.description}`;
+
+            // ajout du prix au panier et à l'endroit prevu sur la page 
+
+            productDisplay.price = `${type.price}`;
+            
+            // Nouvelle boucle à l'interieur de la boucle pour couleurs differentes
+            for (let color of type.colors) {
+              let option = [`${color}">${color}`]
+              console.log(option)
+              
+             // colorsOption.innerHTML += `<option value="${color}">${color}</option>`;
+            }
+          }
+        }
+        console.log("Display done");
+      }
 
 
 
