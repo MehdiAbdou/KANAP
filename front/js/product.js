@@ -30,9 +30,12 @@ et la console affiche une erreur d'Api non trouvée
         console.log("'API not found':" + erreur);
     });
 
-        let productDisplay = {};
-        productDisplay._id = id;
-        console.log(productDisplay);
+
+
+
+        let productObject = {};
+        productObject._id = id;
+        console.log(productObject);
 
     function product(produit) {
        
@@ -40,7 +43,7 @@ et la console affiche une erreur d'Api non trouvée
         let title = document.querySelector("#title");
         let price = document.querySelector("#price");
         let description = document.querySelector("#description");
-        let colorsOption = document.querySelector("#colors");
+        
         // boucle for 
         for (let type of produit) {
           //si id strictement identique à un _id d'un produits du tableau ==> recup indice 
@@ -57,19 +60,20 @@ et la console affiche une erreur d'Api non trouvée
 
             // ajout du prix au panier et à l'endroit prevu sur la page 
 
-            productDisplay.price = `${type.price}`;
+            productObject.price = `${type.price}`;
             
             // Nouvelle boucle à l'interieur de la boucle pour couleurs differentes
             for (let color of type.colors) {
-              let option = [`${color}">${color}`]
-              console.log(option)
-              
-             // colorsOption.innerHTML += `<option value="${color}">${color}</option>`;
+              let optionColor = document.createElement("option");
+              document.getElementById("colors").appendChild(optionColor);
+              optionColor.textContent = color;
+              optionColor.value = color;
             }
           }
         }
         console.log("Display done");
       }
+ //Fonction bouton 
 
 
 
