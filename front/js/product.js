@@ -2,8 +2,6 @@ const urlParam = new URLSearchParams(document.location.search);
 
 const id = urlParam.get("_id");
     console.log(id); 
-
-
  // Importer de l'Api les produits dans la page
     fetch("http://localhost:3000/api/products")
     .then((res) => res.json())
@@ -15,25 +13,21 @@ const id = urlParam.get("_id");
 Si l'Api n'est pas trouvé, le texte associé à la classe .titles se transforme en H1 d'erreur 
 et la console affiche une erreur d'Api non trouvée 
 */
-    .catch((erreur) => {
+.catch((erreur) => {
 
-        let h1 = document.createElement('h1');
-        h1.appendChild(document.createTextNode('Erreur 404'));
+    let h1 = document.createElement('h1');
+    h1.appendChild(document.createTextNode('Erreur 404'));
 
-        let oldTitles = document.querySelector(".item");
-        let oldH1 = oldTitles.children[0];
+    let oldTitles = document.querySelector(".item");
+    let oldH1 = oldTitles.children[0];
 
-        
-        oldTitles.replaceChild(h1, oldH1);
-        
-
-        console.log("'API not found':" + erreur);
-    });
+    oldTitles.replaceChild(h1, oldH1);
+    
+    console.log("'API not found':" + erreur);
+});
 
 
-
-
-        let productObject = {};
+  let productObject = {};
         productObject._id = id;
         console.log(productObject);
 
@@ -75,5 +69,82 @@ et la console affiche une erreur d'Api non trouvée
       }
  //Fonction bouton 
 
+   
+let addToCart = document.getElementById("addToCart");
 
+// Fonction de récupération d'un article déclaré dans le local storage
+function getCart() {
+    let items = [];
+    if (localStorage.getItem("cart") != null) {
+        items = JSON.parse(localStorage.getItem("cart"));
+    }
+    return items;
+}
+
+// Choix de la quantité 
+function quantityValue() {
+    let quantity = document.getElementById("quantity");
+    return quantity.value;
+}
+
+// Choix de la couleur 
+function colorValue() {
+    let color = document.getElementById("colors");
+    return color.value;
+}
+
+
+//Fenêtre de confirmation des options sélectionnées
+const confirmationWindow = () => {
+    if (window.confirm(`Votre article a été de couleur ${colorValue()} à été ajouté au nombre de  ${quantityValue()} à votre panier. \n Consultez le panier OK, revenir à l'accueil Annuler`)) {
+        window.location.href = "cart.html";
+    } else {
+        window.location.href = "index.html";
+    }
+}
+
+
+function itemInCart(productId, color, quantity) {
+    //if (quantity == 0 || color == 0) {
+    if ((color == 0) || ((quantity == null) || (quantity < 1) || (quantity > 100))) {
+        window.alert("Vous devez choisir une couleur et une quantité.");
+        return;
+    }
+    let items = getCart();
+    if (items.length == 0) {
+        items.push({ "productId": productId, "color": color, "quantity": quantity });
+        confirmationWindow();
+
+    } else {
+        let found = false;
+        for (let i = 0; i < items.length; i++) {
+            /* Si item avec le même id/couleur déjà présent dans le local storage
+        on incrémente juste la quantité */
+            if (productId === items[i].productId && color === items[i].color) {
+                found = true;
+                items[i].quantity += quantity;
+                confirmationWindow();
+            }
+        }
+        if (found == false) {
+            let item = {
+                "productId": productId, "color": color, "quantity": quantity
+            };
+            // Méthode d'ajout dans le tableau de l'objet avec les options choisies
+            items.push(item);
+            confirmationWindow();
+        }
+    }
+    // Transformation au format JSON et envoie vers la key du local storage
+    localStorage.setItem("cart", JSON.stringify(items));
+}
+
+
+// Ecouter le bouton et envoie dans le panier des options choisies
+addToCart.addEventListener("click", () => {
+    let quantity = parseInt(quantityValue());  //Convertit la chaîne de caractères et renvoit un entier
+    let color = colorValue();
+    itemInCart(id, color, quantity);
+});
+        
 
