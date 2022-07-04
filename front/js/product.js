@@ -92,11 +92,11 @@ function colorValue() {
     let color = document.getElementById("colors");
     return color.value;
 }
-
+    
 
 //Fenêtre de confirmation des options sélectionnées
 const confirmationWindow = () => {
-    if (window.confirm(`Votre article a été de couleur ${colorValue()} à été ajouté au nombre de  ${quantityValue()} à votre panier. \n Consultez le panier OK, revenir à l'accueil Annuler`)) {
+    if (window.confirm(`Votre article de couleur ${colorValue()} à été ajouté au nombre de ${quantityValue()} à votre panier. \n Consultez le panier OK, revenir à l'accueil Annuler`)) {
         window.location.href = "cart.html";
     } else {
         window.location.href = "index.html";
@@ -135,12 +135,12 @@ function itemInCart(productId, color, quantity) {
             confirmationWindow();
         }
     }
-    // Transformation au format JSON et envoie vers la key du local storage
+    // Transfo format JSON + envoie vers la key du local storage
     localStorage.setItem("cart", JSON.stringify(items));
 }
 
 
-// Ecouter le bouton et envoie dans le panier des options choisies
+// Ecoute du btn ==> envoie dans le panier des options choisies
 addToCart.addEventListener("click", () => {
     let quantity = parseInt(quantityValue());  //Convertit la chaîne de caractères et renvoit un entier
     let color = colorValue();
