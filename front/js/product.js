@@ -67,7 +67,7 @@ et la console affiche une erreur d'Api non trouvée
         }
         console.log("Display done");
       }
- //Fonction bouton 
+ 
 
    
 let addToCart = document.getElementById("addToCart");
@@ -81,13 +81,13 @@ function getCart() {
     return items;
 }
 
-// Choix de la quantité 
+// Choix quantité 
 function quantityValue() {
     let quantity = document.getElementById("quantity");
     return quantity.value;
 }
 
-// Choix de la couleur 
+// Choix couleur 
 function colorValue() {
     let color = document.getElementById("colors");
     return color.value;
@@ -119,7 +119,7 @@ function itemInCart(productId, color, quantity) {
         let found = false;
         for (let i = 0; i < items.length; i++) {
             /* Si item avec le même id/couleur déjà présent dans le local storage
-        on incrémente juste la quantité */
+        on modifie la quantité */
             if (productId === items[i].productId && color === items[i].color) {
                 found = true;
                 items[i].quantity += quantity;
