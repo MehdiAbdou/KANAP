@@ -96,7 +96,7 @@ function colorValue() {
 
 //Fenêtre de confirmation des options sélectionnées
 const confirmationWindow = () => {
-    if (window.confirm(`Votre article de couleur ${colorValue()} à été ajouté au nombre de ${quantityValue()} à votre panier. \n Consultez le panier OK, revenir à l'accueil Annuler`)) {
+    if (window.confirm(`Votre article de couleur ${colorValue()} a été ajouté au nombre de ${quantityValue()} à votre panier. \n Consultez le panier OK, revenir à l'accueil Annuler`)) {
         window.location.href = "cart.html";
     } else {
         window.location.href = "index.html";
@@ -107,7 +107,7 @@ const confirmationWindow = () => {
 function itemInCart(productId, color, quantity) {
     //if (quantity == 0 || color == 0) {
     if ((color == 0) || ((quantity == null) || (quantity < 1) || (quantity > 100))) {
-        window.alert("Vous devez choisir une couleur et une quantité.");
+        window.alert("Choisissez une couleur et une quantité.");
         return;
     }
     let items = getCart();

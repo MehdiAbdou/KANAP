@@ -7,6 +7,7 @@ fetch("http://localhost:3000/api/products")
     })
  
 
+
 //Récupération du localStorage
 let getCart = JSON.parse(localStorage.getItem("cart"));
 
@@ -45,31 +46,35 @@ zonePanier.innerHTML = emptyCart
 }
 
 function affiche(indexé) {
-    /// A MODIFIER !!!! 
-    // on créait les affichages des produits du panier via un map et introduction de dataset dans le code
-    zonePanier.innerHTML += indexé.map((choix) => 
-    `<article class="cart__item" data-id="${choix._id}" data-couleur="${choix.couleur}" data-quantité="${choix.quantité}"> 
-      <div class="cart__item__img">
-        <img src="${choix.image}" alt="${choix.alt}">
+    /// Déclaration variable a injecter dans le inner.html
+    
+   let displayPanier = indexé.map((choix) => 
+    `
+    <article class="cart__item" data-id="${choix._id}" data-couleur="${choix.couleur}" data-quantité="${choix.quantité}"> 
+    <div class="cart__item__img">
+      <img src="${choix.image}" alt="${choix.alt}">
+    </div>
+    <div class="cart__item__content">
+      <div class="cart__item__content__titlePrice">
+        <h2>${choix.name}</h2>
+        <span>couleur : ${choix.couleur}</span>
+        <p data-prix="${choix.prix}">${choix.prix} €</p>
       </div>
-      <div class="cart__item__content">
-        <div class="cart__item__content__titlePrice">
-          <h2>${choix.name}</h2>
-          <span>couleur : ${choix.couleur}</span>
-          <p data-prix="${choix.prix}">${choix.prix} €</p>
+      <div class="cart__item__content__settings">
+        <div class="cart__item__content__settings__quantity">
+          <p>Qté : </p>
+          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${choix.quantité}">
         </div>
-        <div class="cart__item__content__settings">
-          <div class="cart__item__content__settings__quantity">
-            <p>Qté : </p>
-            <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${choix.quantité}">
-          </div>
-          <div class="cart__item__content__settings__delete">
-            <p class="deleteItem" data-id="${choix._id}" data-couleur="${choix.couleur}">Supprimer</p>
-          </div>
+        <div class="cart__item__content__settings__delete">
+          <p class="deleteItem" data-id="${choix._id}" data-couleur="${choix.couleur}">Supprimer</p>
         </div>
       </div>
-    </article>`
-      ).join("");
+    </div>
+  </article>
+  `
+  ).join("");
+  
+    zonePanier.innerHTML += displayPanier 
     
   }
 
