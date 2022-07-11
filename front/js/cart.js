@@ -1,3 +1,6 @@
+
+
+
 //Récupération données backend
 fetch("http://localhost:3000/api/products")
     .then((res) => res.json())
@@ -6,7 +9,22 @@ fetch("http://localhost:3000/api/products")
 
     })
  
+    .catch((erreur) => {
 
+        
+      let h1 = document.createElement('h1');
+      h1.appendChild(document.createTextNode('Erreur 404'));
+    
+      let oldTitles = document.querySelector("#cartAndFormContainer");
+      let oldH1 = oldTitles.children[0];
+    
+      
+      oldTitles.replaceChild(h1, oldH1);
+      
+    
+      console.log("'API not found':" + erreur);
+    });
+    
 
 function cartKanap(index){
     //Si le panier est vide, alors on affiche Panier vide
@@ -78,6 +96,12 @@ function affiche(choix) {
 function saveCart(items) {
   localStorage.setItem("cart", JSON.stringify(items))
 }
+
+
+
+ 
+
+
 
 
   
