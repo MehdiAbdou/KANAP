@@ -2,7 +2,7 @@
 
 
 //Récupération données backend
-fetch("http://localhost:3000/api/products")
+fetch("http://localhost:3000/api/products") 
     .then((res) => res.json())
     .then((apiProduit) => {
         cartKanap(apiProduit);
@@ -49,6 +49,7 @@ function cartKanap(index){
                 choix.image = produit.imageUrl;
                 choix.description = produit.description;
                 choix.alt = produit.altTxt;
+                
 
                 //On passe getCart à la fonction d'affichage
               affiche(choix);
