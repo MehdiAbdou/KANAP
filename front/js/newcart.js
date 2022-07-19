@@ -272,7 +272,7 @@ orderButton.addEventListener("click", (e) => {
   }
   // Masque de recherche de l'email
   const regExEmail = (value) => {
-    return /^[a-zA-Z0-9.-_]+@{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/.test(value)
+    return /^[a-zA-Z0-9._-]+@{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/.test(value)
   }
 
 
