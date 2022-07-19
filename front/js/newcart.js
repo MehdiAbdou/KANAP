@@ -1,3 +1,8 @@
+//declaration tableau pour prix total
+totalOrder = [];
+
+//Fonction affichage Items et prix total 
+
 function displayItem(apiProduit, color, quantity) {
 
     // Création de l'élément "article" contenant le data-id
@@ -45,7 +50,7 @@ function displayItem(apiProduit, color, quantity) {
     let price = apiProduit.price * quantity;
     productPrice.innerHTML = price + " €";
     console.log(price);
-
+    
     // Création élément enfant pour quantité/suppression
     let productItemContentSettings = document.createElement("div");
     productItemContent.appendChild(productItemContentSettings);
@@ -81,6 +86,14 @@ function displayItem(apiProduit, color, quantity) {
     productItemContentSettingsDelete.appendChild(productSupprimer);
     productSupprimer.className = "deleteItem";
     productSupprimer.innerHTML = "Supprimer";
+
+    //Calcul prix total
+    totalOrder.push(price);
+    let sumOrder = 0;
+    for (let i = 0; i < totalOrder.length; i++) {
+      sumOrder += totalOrder[i];
+    }
+    totalPrice.innerHTML = sumOrder.toString();
 
     return productArticle;
 };
@@ -137,22 +150,6 @@ if (getCart === null || getCart == 0) {
   }
 };
 
-// Calcul du prix panier
-let arrayPrice = [];
-if (getCart === null || getCart == 0) {
-  console.log("Panier vide");
-} else {
-  for (let items of getCart) {
-    console.log("laaaaaaaa", items);
-    let ItemPrice = + items.price;
-    arrayPrice.push(ItemPrice);
-  }
-  console.log(arrayPrice);
-  // Méthode d'application de fonction d'accumulateur
-  const reducer = (previousValue, currentValue) => previousValue + currentValue;
-  let totalPriceCart = arrayPrice.reduce(reducer);
-  document.querySelector("#totalPrice").innerHTML = totalPriceCart;
-}
 
 // Calcul du nombre d'articles dans le panier
 let arrayQuantities = [];

@@ -112,7 +112,7 @@ function itemInCart(productId, color, quantity) {
     }
     let items = getCart();
     if (items.length == 0) {
-        items.push({ "productId": productId, "color": color, "quantity": quantity, "price" : price });
+        items.push({ "productId": productId, "color": color, "quantity": quantity });
         confirmationWindow();
 
     } else {
