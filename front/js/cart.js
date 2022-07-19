@@ -41,8 +41,10 @@ function cartKanap(index){
     }else{
         //Sinon on cherche une correspondance clef/valeur de l'api et du panier et on crée les valeurs à afficher
           for (let choix of getCart) {
-            produit = index.find(param => param.productId == choix._id);
-            console.log("prduit", produit)
+            produit = index.find(param => choix.productId == param._id);
+            
+            console.log("choix", choix._id);
+            console.log("prduit", produit);
             if(produit != undefined) {
                 choix.name = produit.name;
                 choix.prix = produit.price;

@@ -52,7 +52,7 @@ et la console affiche une erreur d'Api non trouvée
             price.textContent = `${type.price}`;
             description.textContent = `${type.description}`;
 
-            // ajout du prix au panier et à l'endroit prevu sur la page 
+            // ajout à l'endroit prevu sur la page 
 
             productObject.price = `${type.price}`;
             
@@ -112,7 +112,7 @@ function itemInCart(productId, color, quantity) {
     }
     let items = getCart();
     if (items.length == 0) {
-        items.push({ "productId": productId, "color": color, "quantity": quantity });
+        items.push({ "productId": productId, "color": color, "quantity": quantity, "price" : price });
         confirmationWindow();
 
     } else {
