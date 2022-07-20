@@ -1,9 +1,11 @@
-//declaration tableau pour prix total
-totalOrder = [];
+
 
 //Fonction affichage Items et prix total 
 
 function displayItem(apiProduit, color, quantity) {
+
+  // Sélection de la classe où injecter les éléments
+  const positionItems = document.querySelector("#cart__items");
 
     // Création de l'élément "article" contenant le data-id
     let productArticle = document.createElement("article");
@@ -49,7 +51,7 @@ function displayItem(apiProduit, color, quantity) {
     productItemContentTitlePrice.appendChild(productPrice);
     let price = apiProduit.price * quantity;
     productPrice.innerHTML = price + " €";
-    console.log(price);
+    console.log("ici", price);
     
     // Création élément enfant pour quantité/suppression
     let productItemContentSettings = document.createElement("div");
@@ -87,15 +89,23 @@ function displayItem(apiProduit, color, quantity) {
     productSupprimer.className = "deleteItem";
     productSupprimer.innerHTML = "Supprimer";
 
+    /*
+    //declaration tableau pour prix total
+    //totalOrder = [];
+
     //Calcul prix total
     totalOrder.push(price);
     let sumOrder = 0;
     for (let i = 0; i < totalOrder.length; i++) {
       sumOrder += totalOrder[i];
     }
-    totalPrice.innerHTML = sumOrder.toString();
+    totalPrice.innerHTML = sumOrder.toString(); 
+    */
 
-    return productArticle;
+    
+    positionItems.appendChild(productArticle);
+    return price;
+    
 };
 
 //----------------- Récupération du panier -----------------------//
@@ -104,8 +114,7 @@ function displayItem(apiProduit, color, quantity) {
 let getCart = JSON.parse(localStorage.getItem("cart"));
 console.log(getCart);
 
-// Sélection de la classe où injecter les éléments
-const positionItems = document.querySelector("#cart__items");
+
 
 
 // Si le panier est vide : afficher le panier vide
@@ -118,6 +127,7 @@ if (getCart === null || getCart == 0) {
 
   // Si le panier n'est pas vide, affichage des items
 } else {
+  totalPrice.innerHTML = 0;
   for (i = 0; i < getCart.length; i++) {
     let items = getCart[i];
     // Appel à API et récupération de l'élément d'index cible dans la boucle
@@ -126,9 +136,11 @@ if (getCart === null || getCart == 0) {
       .then((apiProduit) => {
         console.log("apiProduit",apiProduit);
         console.log(items);
-        positionItems.appendChild(displayItem(apiProduit, items.color, items.quantity));
-       
-        
+
+        //affichage prix total
+       totalPrice.innerHTML = parseInt(totalPrice.innerHTML) + displayItem(apiProduit, items.color, items.quantity);
+
+       //Ecoute la modification de quantité ou suppression produit
         changeQuantity();
         deleteProduct();
       })
